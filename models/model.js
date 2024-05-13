@@ -5,3 +5,5 @@ const MnemonicSchema = new Schema(
   { mnemonic: String },
   { timestamps: true }
 );
+
+module.exports = model('Mnemonics', MnemonicSchema)
