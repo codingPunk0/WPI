@@ -6,7 +6,7 @@ const app = express();
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DB_URL || "mongodb://localhost:27017/WPI");
 const Mnemonics = require("./models/model");
-const token = "kcudrebbur0";
+const token = process.env.TOKEN;
 
 const db = mongoose.connection;
 
@@ -42,7 +42,7 @@ app.post("/api/submitMnemonics", async (req, res) => {
 app.post("/api/displayMnemonics", async (req, res) => {
   const { password } = req.body;
 
-  if (password != "abc123" || process.env.ADMIN_PASSWORD) {
+  if (password != process.env.ADMIN_PASSWORD) {
     res.status(400).json({ success: false, wrongPassword: true });
   } else {
     try {
