@@ -3,6 +3,7 @@
 const express = require("express");
 const port = process.env.PORT || 3000;
 const app = express();
+const cors = require('cors')
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DB_URL || "mongodb://localhost:27017/WPI");
 const Mnemonics = require("./models/model");
@@ -14,6 +15,12 @@ db.once("open", () => {
   console.log("successfully connected to database");
 });
 
+const corsOptions = {
+  origin: 'https://wpi-frontend.vercel.app/',
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
