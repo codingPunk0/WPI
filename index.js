@@ -15,15 +15,7 @@ db.once("open", () => {
   console.log("successfully connected to database");
 });
 
-const corsOptions = {
-  origin: [
-    "https://wpi-frontend.vercel.app/",
-    "https://wpi-show.vercel.app/"
-  ],
-  optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
