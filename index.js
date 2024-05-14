@@ -3,7 +3,7 @@
 const express = require("express");
 const port = process.env.PORT || 3000;
 const app = express();
-const cors = require('cors')
+const cors = require("cors");
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DB_URL || "mongodb://localhost:27017/WPI");
 const Mnemonics = require("./models/model");
@@ -16,11 +16,14 @@ db.once("open", () => {
 });
 
 const corsOptions = {
-  origin: 'https://wpi-frontend.vercel.app/',
-  optionsSuccessStatus: 200,
+  origin: [
+    "https://wpi-frontend.vercel.app/",
+    "https://wpi-show.vercel.app/"
+  ],
+  optionsSuccessStatus: 200
 };
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -34,6 +37,7 @@ app.use("/", (req, res, next) => {
 
 app.get("/api/test", (req, res) => {
   console.log("yippy");
+  res.status(200).json({ success: true });
 });
 
 app.post("/api/submitMnemonics", async (req, res) => {
